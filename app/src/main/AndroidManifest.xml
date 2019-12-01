@@ -24,6 +24,8 @@
 
         <activity android:name=".home.HomeActivity" />
 
+        <activity android:name=".ui.base.BaseActivity" />
+
     </application>
 
 </manifest>
