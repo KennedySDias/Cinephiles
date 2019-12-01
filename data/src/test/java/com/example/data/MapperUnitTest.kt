@@ -30,14 +30,29 @@ class MapperUnitTest : AutoCloseKoinTest() {
     private val movieMapper by inject<MovieMapper>()
     private val upcomingMoviesMapper by inject<UpcomingMoviesMapper>()
 
+    private val genreCacheFully = GenreCache(
+            id = 1,
+            name = "Title"
+    )
+
     private val genreCacheEmpty = GenreCache(
             id = 0,
             name = ""
     )
 
+    private val genreModelFully = GenreModel(
+            id = 1,
+            name = "Title"
+    )
+
     private val genreModelEmpty = GenreModel(
             id = 0,
             name = ""
+    )
+
+    private val genreResponseModelFully = GenreResponseModel(
+            id = 1,
+            name = "Title"
     )
 
     private val genreResponseModelEmpty = GenreResponseModel(
@@ -48,6 +63,23 @@ class MapperUnitTest : AutoCloseKoinTest() {
     private val genreResponseModelNull = GenreResponseModel(
             id = null,
             name = null
+    )
+
+    private val shortMovieModelFully = ShortMovieModel(
+            popularity = 5f,
+            voteCount = 1000,
+            video = true,
+            posterPath = "posterPath",
+            id = 10,
+            adult = false,
+            backdropPath = "backdropPath",
+            originalLanguage = "originalLanguage",
+            originalTitle = "originalTitle",
+            genreIds = listOf(1, 2, 3),
+            title = "title",
+            voteAverage = 10f,
+            overview = "overview",
+            releaseDate = "releaseDate"
     )
 
     private val shortMovieModelEmpty = ShortMovieModel(
@@ -65,6 +97,30 @@ class MapperUnitTest : AutoCloseKoinTest() {
             voteAverage = 0f,
             overview = "",
             releaseDate = ""
+    )
+
+    private val fullMovieModelFully = FullMovieModel(
+            adult = false,
+            backdropPath = "backdropPath",
+            budget = 10,
+            genres = emptyList(),
+            homepage = "homepage",
+            id = 10,
+            imdbId = "imdbId",
+            originalLanguage = "originalLanguage",
+            originalTitle = "originalTitle",
+            overview = "overview",
+            popularity = 10,
+            posterPath = "posterPath",
+            releaseDate = "releaseDate",
+            revenue = 10,
+            runtime = 10,
+            status = "status",
+            tagline = "tagline",
+            title = "title",
+            video = false,
+            voteAverage = 10f,
+            voteCount = 1000
     )
 
     private val fullMovieModelEmpty = FullMovieModel(
@@ -91,6 +147,23 @@ class MapperUnitTest : AutoCloseKoinTest() {
             voteCount = 0
     )
 
+    private val movieShortResponseModelFully = MovieShortResponseModel(
+            popularity = 5f,
+            voteCount = 1000,
+            video = true,
+            posterPath = "posterPath",
+            id = 10,
+            adult = false,
+            backdropPath = "backdropPath",
+            originalLanguage = "originalLanguage",
+            originalTitle = "originalTitle",
+            genreIds = listOf(1, 2, 3),
+            title = "title",
+            voteAverage = 10f,
+            overview = "overview",
+            releaseDate = "releaseDate"
+    )
+
     private val movieShortResponseModelEmpty = MovieShortResponseModel(
             popularity = 0f,
             voteCount = 0,
@@ -106,6 +179,30 @@ class MapperUnitTest : AutoCloseKoinTest() {
             voteAverage = 0f,
             overview = "",
             releaseDate = ""
+    )
+
+    private val movieFullResponseModelFully = MovieFullResponseModel(
+            adult = false,
+            backdropPath = "backdropPath",
+            budget = 10,
+            genres = emptyList(),
+            homepage = "homepage",
+            id = 10,
+            imdbId = "imdbId",
+            originalLanguage = "originalLanguage",
+            originalTitle = "originalTitle",
+            overview = "overview",
+            popularity = 10,
+            posterPath = "posterPath",
+            releaseDate = "releaseDate",
+            revenue = 10,
+            runtime = 10,
+            status = "status",
+            tagline = "tagline",
+            title = "title",
+            video = false,
+            voteAverage = 10f,
+            voteCount = 1000
     )
 
     private val movieFullResponseModelEmpty = MovieFullResponseModel(
@@ -173,11 +270,25 @@ class MapperUnitTest : AutoCloseKoinTest() {
             voteCount = null
     )
 
+    private val upcomingMoviesModelFully = UpcomingMoviesModel(
+            movies = emptyList(),
+            page = 10,
+            totalPages = 100,
+            totalResults = 10000
+    )
+
     private val upcomingMoviesModelEmpty = UpcomingMoviesModel(
             movies = emptyList(),
             page = 0,
             totalPages = 0,
             totalResults = 0
+    )
+
+    private val upcomingMoviesResponseModelFully = UpcomingMoviesResponseModel(
+            results = emptyList(),
+            page = 10,
+            totalPages = 100,
+            totalResults = 10000
     )
 
     private val upcomingMoviesResponseModelEmpty = UpcomingMoviesResponseModel(
@@ -202,6 +313,16 @@ class MapperUnitTest : AutoCloseKoinTest() {
     }
 
     @Test
+    fun `GenreMapper Cache To Model`() {
+        val cache = genreCacheFully
+        val model = genreModelFully
+
+        val result = genreMapper.mapCacheToModel(cache)
+
+        assertEquals(model, result)
+    }
+
+    @Test
     fun `GenreMapper Cache To Model Empty`() {
         val cache = genreCacheEmpty
         val model = genreModelEmpty
@@ -217,6 +338,16 @@ class MapperUnitTest : AutoCloseKoinTest() {
         val model = genreModelEmpty
 
         val result = genreMapper.mapCacheToModel(cache)
+
+        assertEquals(model, result)
+    }
+
+    @Test
+    fun `GenreMapper Payload To Models`() {
+        val payload = genreResponseModelFully
+        val model = genreModelFully
+
+        val result = genreMapper.mapPayloadToModel(payload)
 
         assertEquals(model, result)
     }
@@ -252,9 +383,29 @@ class MapperUnitTest : AutoCloseKoinTest() {
     }
 
     @Test
+    fun `MovieMapper Payload To Models - Short`() {
+        val payload = movieShortResponseModelFully
+        val model = shortMovieModelFully
+
+        val result = movieMapper.mapPayloadToModel(payload)
+
+        assertEquals(model, result)
+    }
+
+    @Test
     fun `MovieMapper Payload To Models Empty - Short`() {
         val payload = movieShortResponseModelEmpty
         val model = shortMovieModelEmpty
+
+        val result = movieMapper.mapPayloadToModel(payload)
+
+        assertEquals(model, result)
+    }
+
+    @Test
+    fun `MovieMapper Payload To Models - Full`() {
+        val payload = movieFullResponseModelFully
+        val model = fullMovieModelFully
 
         val result = movieMapper.mapPayloadToModel(payload)
 
@@ -312,7 +463,17 @@ class MapperUnitTest : AutoCloseKoinTest() {
     }
 
     @Test
-    fun `UpcomingMoviesMapper Payload Empty To Models`() {
+    fun `UpcomingMoviesMapper Payload To Model`() {
+        val payload = upcomingMoviesResponseModelFully
+        val model = upcomingMoviesModelFully
+
+        val result = upcomingMoviesMapper.mapPayloadToModel(payload)
+
+        assertEquals(model, result)
+    }
+
+    @Test
+    fun `UpcomingMoviesMapper Payload Empty To Model`() {
         val payload = upcomingMoviesResponseModelEmpty
         val model = upcomingMoviesModelEmpty
 
@@ -322,7 +483,7 @@ class MapperUnitTest : AutoCloseKoinTest() {
     }
 
     @Test
-    fun `UpcomingMoviesMapper Payload Null To Models`() {
+    fun `UpcomingMoviesMapper Payload Null To Model`() {
         val payload = null
         val model = upcomingMoviesModelEmpty
 
@@ -332,7 +493,7 @@ class MapperUnitTest : AutoCloseKoinTest() {
     }
 
     @Test
-    fun `UpcomingMoviesMapper Payload Null2 To Models`() {
+    fun `UpcomingMoviesMapper Payload Null2 To Model`() {
         val payload = upcomingMoviesResponseModelNull
         val model = upcomingMoviesModelEmpty
 
