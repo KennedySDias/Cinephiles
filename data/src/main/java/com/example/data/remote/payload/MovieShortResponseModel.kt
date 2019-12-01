@@ -3,7 +3,7 @@ package com.example.data.remote.payload
 import com.google.gson.annotations.SerializedName
 
 // I'm settings all as nullable because I don't know what can be null or not
-class MovieShortResponseModel(
+data class MovieShortResponseModel(
         @SerializedName("popularity") val popularity: Float? = null,
         @SerializedName("vote_count") val voteCount: Int? = null,
         @SerializedName("video") val video: Boolean? = null,
