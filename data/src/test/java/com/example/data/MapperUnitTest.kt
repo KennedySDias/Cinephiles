@@ -4,12 +4,15 @@ import com.example.data.di.mapperDataModule
 import com.example.data.local.entity.GenreCache
 import com.example.data.mapper.GenreMapper
 import com.example.data.mapper.MovieMapper
+import com.example.data.mapper.UpcomingMoviesMapper
 import com.example.data.model.FullMovieModel
 import com.example.data.model.GenreModel
 import com.example.data.model.ShortMovieModel
+import com.example.data.model.UpcomingMoviesModel
 import com.example.data.remote.payload.GenreResponseModel
 import com.example.data.remote.payload.MovieFullResponseModel
 import com.example.data.remote.payload.MovieShortResponseModel
+import com.example.data.remote.payload.UpcomingMoviesResponseModel
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -25,6 +28,7 @@ class MapperUnitTest : AutoCloseKoinTest() {
 
     private val genreMapper by inject<GenreMapper>()
     private val movieMapper by inject<MovieMapper>()
+    private val upcomingMoviesMapper by inject<UpcomingMoviesMapper>()
 
     private val genreCacheEmpty = GenreCache(
             id = 0,
@@ -169,6 +173,27 @@ class MapperUnitTest : AutoCloseKoinTest() {
             voteCount = null
     )
 
+    private val upcomingMoviesModelEmpty = UpcomingMoviesModel(
+            movies = emptyList(),
+            page = 0,
+            totalPages = 0,
+            totalResults = 0
+    )
+
+    private val upcomingMoviesResponseModelEmpty = UpcomingMoviesResponseModel(
+            results = emptyList(),
+            page = 0,
+            totalPages = 0,
+            totalResults = 0
+    )
+
+    private val upcomingMoviesResponseModelNull = UpcomingMoviesResponseModel(
+            results = null,
+            page = null,
+            totalPages = null,
+            totalResults = null
+    )
+
     @Before
     fun before() {
         startKoin {
@@ -282,6 +307,36 @@ class MapperUnitTest : AutoCloseKoinTest() {
         val model = fullMovieModelEmpty
 
         val result = movieMapper.mapPayloadToModel(payload)
+
+        assertEquals(model, result)
+    }
+
+    @Test
+    fun `UpcomingMoviesMapper Payload Empty To Models`() {
+        val payload = upcomingMoviesResponseModelEmpty
+        val model = upcomingMoviesModelEmpty
+
+        val result = upcomingMoviesMapper.mapPayloadToModel(payload)
+
+        assertEquals(model, result)
+    }
+
+    @Test
+    fun `UpcomingMoviesMapper Payload Null To Models`() {
+        val payload = null
+        val model = upcomingMoviesModelEmpty
+
+        val result = upcomingMoviesMapper.mapPayloadToModel(payload)
+
+        assertEquals(model, result)
+    }
+
+    @Test
+    fun `UpcomingMoviesMapper Payload Null2 To Models`() {
+        val payload = upcomingMoviesResponseModelNull
+        val model = upcomingMoviesModelEmpty
+
+        val result = upcomingMoviesMapper.mapPayloadToModel(payload)
 
         assertEquals(model, result)
     }
