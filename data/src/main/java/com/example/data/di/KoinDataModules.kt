@@ -6,6 +6,7 @@ import com.example.data.mapper.GenreMapper
 import com.example.data.mapper.MovieMapper
 import com.example.data.mapper.UpcomingMoviesMapper
 import com.example.data.remote.RetrofitBuilder
+import com.example.data.util.MovieImageUrlBuilder
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -16,7 +17,7 @@ val cacheDataSourceModule = module {
 
 val remoteDataSourceModule = module {
     single { RetrofitBuilder(androidContext().cacheDir) }
-    factory<RemoteDataSource> { RemoteDataSourceImpl(get(), get(), get(),get()) }
+    factory<RemoteDataSource> { RemoteDataSourceImpl(get(), get(), get(), get()) }
 }
 
 val repositoryModule = module {
@@ -27,4 +28,8 @@ val mapperDataModule = module {
     single { GenreMapper() }
     single { MovieMapper(get()) }
     single { UpcomingMoviesMapper(get()) }
+}
+
+val utilsModule = module {
+    single { MovieImageUrlBuilder() }
 }

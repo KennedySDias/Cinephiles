@@ -14,7 +14,7 @@ interface RemoteDataSource {
 
     suspend fun getGenresMovies(): List<GenreModel>
 
-    suspend fun getUpcomingMovies(page: Long): UpcomingMoviesModel
+    suspend fun getUpcomingMovies(page: Int): UpcomingMoviesModel
 
     suspend fun getMovieDetails(id: Long): FullMovieModel
 
@@ -36,7 +36,7 @@ class RemoteDataSourceImpl(
                 ).genres?.map { genreMapper.mapPayloadToModel(it) } ?: emptyList()
     }
 
-    override suspend fun getUpcomingMovies(page: Long): UpcomingMoviesModel {
+    override suspend fun getUpcomingMovies(page: Int): UpcomingMoviesModel {
         return upcomingMoviesMapper.mapPayloadToModel(retrofitBuilder
                 .build(TMDBApi::class.java)
                 .fetchUpcomingMovies(

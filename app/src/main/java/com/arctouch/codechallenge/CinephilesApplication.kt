@@ -1,10 +1,8 @@
 package com.arctouch.codechallenge
 
 import android.app.Application
-import com.example.data.di.cacheDataSourceModule
-import com.example.data.di.mapperDataModule
-import com.example.data.di.remoteDataSourceModule
-import com.example.data.di.repositoryModule
+import com.arctouch.codechallenge.di.viewModelModules
+import com.example.data.di.*
 import com.example.domain.di.mapperDomainModule
 import com.example.domain.di.useCasesModule
 import org.koin.android.ext.koin.androidContext
@@ -24,10 +22,14 @@ class CinephilesApplication : Application() {
                 remoteDataSourceModule,
                 repositoryModule,
                 mapperDataModule,
+                utilsModule,
 
                 // Domain
                 mapperDomainModule,
-                useCasesModule
+                useCasesModule,
+
+                // Presentation
+                viewModelModules
         )
 
         startKoin {

@@ -9,7 +9,7 @@ class GetUpcomingMoviesUseCase(
         private val tmdbRepository: TMDBRepository
 ) : UseCase<UpcomingMoviesData>() {
 
-    var page: Long = 1
+    var page: Int = 1
 
     override suspend fun executeOnBackground(): UpcomingMoviesData {
         return upcomingMoviesMapper.mapModelToData(tmdbRepository.getUpcomingMovies(page))

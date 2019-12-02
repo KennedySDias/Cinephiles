@@ -8,7 +8,7 @@ interface TMDBRepository {
 
     suspend fun getGenresMovies(forceUpdate: Boolean): List<GenreModel>
 
-    suspend fun getUpcomingMovies(page: Long): UpcomingMoviesModel
+    suspend fun getUpcomingMovies(page: Int): UpcomingMoviesModel
 
     suspend fun getMovieDetails(id: Long): FullMovieModel
 }
@@ -45,7 +45,7 @@ class TMDBRepositoryImpl(
         }
     }
 
-    override suspend fun getUpcomingMovies(page: Long): UpcomingMoviesModel {
+    override suspend fun getUpcomingMovies(page: Int): UpcomingMoviesModel {
         return remoteDataSource.getUpcomingMovies(page)
     }
 

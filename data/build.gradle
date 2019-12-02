@@ -31,10 +31,14 @@ android {
         // You can set different URL or KEY to each environment
         debug {
             buildConfigField "String", "API_URL", "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", "API_POSTER_URL", "\"https://image.tmdb.org/t/p/w154/\""
+            buildConfigField "String", "API_BACKDROP_URL", "\"https://image.tmdb.org/t/p/w780/\""
             buildConfigField "String", "API_KEY", "\"1f54bd990f1cdfb230adb312546d765d\""
         }
         release {
             buildConfigField "String", "API_URL", "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", "API_POSTER_URL", "\"https://image.tmdb.org/t/p/w154/\""
+            buildConfigField "String", "API_BACKDROP_URL", "\"https://image.tmdb.org/t/p/w780/\""
             buildConfigField "String", "API_KEY", "\"1f54bd990f1cdfb230adb312546d765d\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
