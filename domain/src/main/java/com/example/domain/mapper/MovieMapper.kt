@@ -39,7 +39,7 @@ class MovieMapper(private val genreMapper: GenreMapper) {
             originalLanguage = model?.originalLanguage ?: "",
             originalTitle = model?.originalTitle ?: "",
             overview = model?.overview ?: "",
-            popularity = model?.popularity ?: 0,
+            popularity = model?.popularity ?: 0f,
             posterPath = model?.posterPath ?: "",
             releaseDate = model?.releaseDate ?: "",
             revenue = model?.revenue ?: 0,

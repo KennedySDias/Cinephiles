@@ -14,7 +14,7 @@ data class MovieFullResponseModel(
         @SerializedName("original_language") val originalLanguage: String? = null,
         @SerializedName("original_title") val originalTitle: String? = null,
         @SerializedName("overview") val overview: String? = null,
-        @SerializedName("popularity") val popularity: Long? = null,
+        @SerializedName("popularity") val popularity: Float? = null,
         @SerializedName("poster_path") val posterPath: String? = null,
         @SerializedName("release_date") val releaseDate: String? = null,
         @SerializedName("revenue") val revenue: Int? = null,

@@ -1,5 +1,9 @@
 package com.example.domain.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class ShortMovieData(
         val popularity: Float,
         val voteCount: Int,
@@ -15,4 +19,4 @@ data class ShortMovieData(
         val voteAverage: Float,
         val overview: String,
         val releaseDate: String
-)
+) : Parcelable

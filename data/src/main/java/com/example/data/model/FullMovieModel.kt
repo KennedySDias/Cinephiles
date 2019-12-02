@@ -11,7 +11,7 @@ data class FullMovieModel(
         val originalLanguage: String,
         val originalTitle: String,
         val overview: String,
-        val popularity: Long,
+        val popularity: Float,
         val posterPath: String,
         val releaseDate: String,
         val revenue: Int,
