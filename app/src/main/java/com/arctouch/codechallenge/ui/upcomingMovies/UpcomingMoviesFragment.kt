@@ -1,5 +1,6 @@
 package com.arctouch.codechallenge.ui.upcomingMovies
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import com.arctouch.codechallenge.R
 import com.arctouch.codechallenge.databinding.FragmentUpcomingMoviesBinding
 import com.arctouch.codechallenge.extensions.observe
 import com.arctouch.codechallenge.ui.base.BaseFragment
+import com.arctouch.codechallenge.ui.moviedetails.MovieDetailsActivity
+import com.arctouch.codechallenge.ui.moviedetails.MovieDetailsFragment
 import com.example.domain.model.ShortMovieData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -59,6 +62,7 @@ class UpcomingMoviesFragment : BaseFragment() {
         observe(viewModel.fatalErrorOb, ::handleFatalError)
         observe(viewModel.moviesOb, ::handleMovies)
         observe(viewModel.errorOb, ::handleError)
+        observe(viewModel.showMovieDetailsOb, ::handleShowMovieDetails)
     }
 
     private fun handleMovies(liveData: LiveData<PagedList<ShortMovieData>>) {
@@ -94,6 +98,12 @@ class UpcomingMoviesFragment : BaseFragment() {
 
     private fun handleError(message: String) {
         showSnackbar(message)
+    }
+
+    private fun handleShowMovieDetails(movie: ShortMovieData) {
+        val newIntent = Intent(context, MovieDetailsActivity::class.java)
+        newIntent.putExtra(MovieDetailsFragment.EXTRA_MOVIE, movie)
+        startActivity(newIntent)
     }
 
     private fun handleGettingData(loading: Boolean) {

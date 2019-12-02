@@ -33,6 +33,7 @@ class UpcomingMoviesViewModel(
     val fatalErrorOb = SingleLiveEvent<String>()
     val notConnectedOb = SingleLiveEvent<Boolean>()
     val gettingDataOb = SingleLiveEvent<Boolean>()
+    val showMovieDetailsOb = SingleLiveEvent<ShortMovieData>()
 
     fun init() {
         getUpcomingMovies(false)
@@ -104,6 +105,10 @@ class UpcomingMoviesViewModel(
     fun getGenresNames(genreIds: MutableList<Long>): String {
         val result = genresOb.value?.filter { genreIds.contains(it.id) } ?: emptyList()
         return result.joinToString { it.name }
+    }
+
+    fun openMovieDetails(movie: ShortMovieData){
+        showMovieDetailsOb.value = movie
     }
 
 }
